@@ -1,3 +1,12 @@
+<!--
+    @license
+    Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    Code distributed by Google as part of the polymer project is also
+    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -12,11 +21,11 @@ var globalSpeed = 1;
 var waveOpacityDecayVelocity = 0.8 / globalSpeed;  // opacity per second.
 var waveInitialOpacity = 0.25;
 var waveLingerOnTouchUp = 0.2;
-var waveMaxRadius = 150;
+var waveMaxRadius = 150; 
 
 // TODOs:
 // - rather than max distance to corner, use hypotenuos(sp) (diag)
-// - use quadratic for the fall off, move fast at the beginning,
+// - use quadratic for the fall off, move fast at the beginning, 
 // - on cancel, immediately fade out, reverse the direction
 
 function waveRadiusFn(touchDownMs, touchUpMs, ww, hh) {
@@ -27,7 +36,7 @@ function waveRadiusFn(touchDownMs, touchUpMs, ww, hh) {
   var waveRadius = Math.min(Math.max(ww, hh), waveMaxRadius) * 1.1 + 5;
   var dduration = 1.1 - .2 * (waveRadius / waveMaxRadius);
   var tt = (totalElapsed / dduration);
-
+  
   var ssize = waveRadius * (1 - Math.pow(80, -tt));
   return Math.abs(ssize);
 }
@@ -54,7 +63,7 @@ function waveOuterOpacityFn(td, tu) {
   var outerOpacity = touchDown * 0.3;
   var waveOpacity = waveOpacityFn(td, tu);
   return Math.max(0, Math.min(outerOpacity, waveOpacity));
-
+  
 }
 
 function waveGravityToCenterPercentageFn(td, tu, r) {
@@ -233,10 +242,10 @@ function setUpPaper(elem) {
 
       // Ripple gravitational pull to the center of the canvas.
       if (wave.endPosition) {
-
+ 
         var translateFraction = waveGravityToCenterPercentageFn(tDown, tUp, wave.maxRadius);
 
-        // This translates from the origin to the center of the view  based on the max dimension of
+        // This translates from the origin to the center of the view  based on the max dimension of  
         var translateFraction = Math.min(1, radius / wave.containerSize * 2 / Math.sqrt(2) );
 
         x += translateFraction * (wave.endPosition.x - wave.startPosition.x);
@@ -760,7 +769,7 @@ window.addEventListener('DOMContentLoaded', init, false);
 </div>
 
 <div id="dialog" class="dialog visible">
-    <h1>Press mah buttons!</h1> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+    <h1>Press mah buttons!</h1> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. 
     <span class="container"><canvas class="paper button" id="button_borderless" value="CANCEL"></canvas></span>
     <span class="container"><canvas class="paper button" id="button_borderless_blue" onclick="toggleDialog()" value="OK"></canvas></span>
 </div>
