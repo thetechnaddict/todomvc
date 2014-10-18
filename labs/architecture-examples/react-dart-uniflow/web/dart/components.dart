@@ -19,11 +19,7 @@ import 'dispatcher.dart';
 abstract class _Component extends Component {
   get value => props['value'];
   bool shouldComponentUpdate(nextProps, nextState) {
-    var value = props['value'] != nextProps['value'];
-    if (value) {
-      print("Component $runtimeType will be rerendered");
-    }
-    return value;
+    return props['value'] != nextProps['value'];
   }
 }
 
@@ -33,10 +29,10 @@ class TodoApp extends _Component {
     return
       div({'id': 'todo-app', 'className': value['filter']}, [
         headerComponent({'value': value["new-input"]}),
-        mainComponent({'value': new PersistentMap.fromMap({
+        mainComponent({'value': persist({
           'list': value["list"],
           'edit': value["edit"]})}),
-        footerComponent({'value': new PersistentMap.fromMap({
+        footerComponent({'value': persist({
           'count': value["list"].length,
           'filter': value["filter"],
           'countCompleted': value["list"].where((i) => i["isCompleted"]).length})})]);
@@ -95,7 +91,7 @@ class TodoList extends _Component {
   render() {
     return
       ul({'id': 'todo-list'}, (value['list'] as PersistentVector).toList().reversed.map((PersistentMap item) =>
-        todoListItemComponent({'value': new PersistentMap.fromMap({
+        todoListItemComponent({'value': persist({
           'item': item,
           'isEditing': value['edit'] == item['id']})})));
   }

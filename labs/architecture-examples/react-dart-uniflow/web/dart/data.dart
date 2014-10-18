@@ -62,86 +62,31 @@ class Data {
 
   add(Object path, v, [d = null]) {
     if (path is String) {
-       path = [path];
-     }
-
-     var beginning = false;
-     if (d == null) {
-       beginning = true;
-       d = value;
-     }
-
-     var nextPart = (path as List).removeAt(0);
-     if ((path as List).isEmpty) {
-       d = d.insert(nextPart, d[nextPart].push(v));
-     } else {
-       var newVal = update(path, v, d[nextPart]);
-       if (d is PersistentVector) {
-         d = d.set(nextPart, newVal);
-       } else {
-         d = d.insert(nextPart, newVal);
-       }
-     }
-
-     if (beginning) {
-       _value = d;
-     }
-     return d;
+      path = [path];
+    }
+    (path as List).add((get(path) as PersistentVector).length);
+    _value = insertIn(value, path, v);
   }
 
-  update(Object path, v, [d = null]) {
+  update(Object path, v) {
     if (path is String) {
       path = [path];
     }
-
-    var beginning = false;
-    if (d == null) {
-      beginning = true;
-      d = value;
-    }
-
-    var nextPart = (path as List).removeAt(0);
-    if ((path as List).isEmpty) {
-      d = d.insert(nextPart, v);
-    } else {
-      var newVal = update(path, v, d[nextPart]);
-      if (d is PersistentVector) {
-        d = d.set(nextPart, newVal);
-      } else {
-        d = d.insert(nextPart, newVal);
-      }
-    }
-
-    if (beginning) {
-      _value = d;
-    }
-    return d;
+    _value = insertIn(value, path, v);
   }
 
   get(Object path, [d = null]) {
     if (path is String) {
       path = [path];
     }
-
-    if (d == null) {
-      d = value;
-    }
-
-    var nextPart = (path as List).removeAt(0);
-    var val = d[nextPart];
-    if ((path as List).isEmpty) {
-      return val;
-    } else {
-      return get(path, val);
-    }
+    return lookupIn(value, path);
   }
 }
 
-var _appData = new Data(
-  new PersistentMap.fromMap({
+var _appData = new Data(persist({
     'autoincrement': 0,
     'new-input': '',
-    'list': new PersistentVector.from([]),
+    'list': [],
     'filter': 'all',
     'edit': null}));
 

@@ -2,6 +2,7 @@ library todomvc;
 
 import 'dispatcher.dart';
 import 'package:react/react_client.dart';
+import 'package:persistent/persistent.dart';
 
 // This is an example of unidirectional flow architecture of a SPA based on React
 // and persistent data structures.
@@ -37,7 +38,7 @@ import 'package:react/react_client.dart';
 //                        |                      v
 //                        +------------ change global state
 //
-// Very simple but still performant, and very declarative. We don't really care about rendering, DOM, etc - 
+// Very simple but still performant, and very declarative. We don't really care about rendering, DOM, etc -
 // we just change the global state, and let React do the heavy lifting.
 
 // Entry point of the app. We just render the view here for the first time.
