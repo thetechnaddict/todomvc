@@ -2,7 +2,7 @@ library todomvc.components;
 
 import 'dart:html';
 import 'package:react/react.dart';
-import 'package:persistent/persistent.dart';
+import 'package:vacuum_persistent/persistent.dart';
 import 'dispatcher.dart';
 
 // React components are defined here. They can assign events to the elements, but these
@@ -90,7 +90,7 @@ var mainComponent = registerComponent(() => new Main());
 class TodoList extends _Component {
   render() {
     return
-      ul({'id': 'todo-list'}, (value['list'] as PersistentVector).toList().reversed.map((PersistentMap item) =>
+      ul({'id': 'todo-list'}, (value['list'] as PVec).toList().reversed.map((PMap item) =>
         todoListItemComponent({'value': persist({
           'item': item,
           'isEditing': value['edit'] == item['id']})})));
@@ -100,7 +100,7 @@ var todoListComponent = registerComponent(() => new TodoList());
 
 
 class TodoListItem extends _Component {
-  PersistentMap get item => value['item'];
+  PMap get item => value['item'];
 
   Map getInitialState() {
     return {'value': item['text']};

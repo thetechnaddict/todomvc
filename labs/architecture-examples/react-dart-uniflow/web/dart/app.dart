@@ -2,7 +2,7 @@ library todomvc;
 
 import 'dispatcher.dart';
 import 'package:react/react_client.dart';
-import 'package:persistent/persistent.dart';
+import 'package:vacuum_persistent/persistent.dart';
 
 // This is an example of unidirectional flow architecture of a SPA based on React
 // and persistent data structures.

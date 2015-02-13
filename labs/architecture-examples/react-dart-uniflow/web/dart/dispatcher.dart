@@ -9,7 +9,7 @@ import 'models/item.dart';
 // Rerenders the whole view, from top to bottom. We always rerender the whole thing, letting
 // React decide what should be updated and what should not down the road.
 void rerender() {
-  renderComponent(todoAppComponent({'value': appData.value}), querySelector('#todoapp'));
+  render(todoAppComponent({'value': appData.value}), querySelector('#todoapp'));
 }
 
 // Our main and only entry for all the events from the view. View sends them in a form of maps,

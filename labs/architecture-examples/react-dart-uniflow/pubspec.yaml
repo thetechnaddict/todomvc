@@ -3,6 +3,5 @@ version: 1.0.0
 description: TodoMVC built with Dart. Simple, vanilla Dart.
 dependencies:
   browser: any
-  persistent:
-    git: https://github.com/vacuumlabs/persistent.git
   react: any
+  vacuum_persistent: any

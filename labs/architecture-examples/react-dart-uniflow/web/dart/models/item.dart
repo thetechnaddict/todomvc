@@ -1,7 +1,7 @@
 library todomvc.models.item;
 
 import '../data.dart';
-import 'package:persistent/persistent.dart';
+import 'package:vacuum_persistent/persistent.dart';
 
 class Item {
   final int _id;
@@ -22,21 +22,21 @@ class Item {
 
   static void create(String value) {
     appData.update("autoincrement", appData.get("autoincrement") + 1);
-    var map = new PersistentMap.fromMap({'text': value, 'id': appData.get("autoincrement"), 'isCompleted': false});
+    var map = new PMap.fromMap({'text': value, 'id': appData.get("autoincrement"), 'isCompleted': false});
     appData.add("list", map);
   }
 
   static void toggleAll() {
-    PersistentVector list = appData.get("list");
-    var areAllCompleted = list.every((PersistentMap item) => item['isCompleted']);
-    list.forEach((PersistentMap item) {
+    PVec list = appData.get("list");
+    var areAllCompleted = list.every((PMap item) => item['isCompleted']);
+    list.forEach((PMap item) {
       var id = item['id'];
       new Item(id).toggle(!areAllCompleted);
     });
   }
 
   static void clearCompleted() {
-    appData.get("list").forEach((PersistentMap item) {
+    appData.get("list").forEach((PMap item) {
       new Item(item['id']).toggle(false);
     });
   }

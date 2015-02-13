@@ -1,6 +1,6 @@
 library todomvc.data;
 
-import 'package:persistent/persistent.dart';
+import 'package:vacuum_persistent/persistent.dart';
 
 // Our global application data class. I added some methods to it, which allows to
 // work conveniently with deep persistent structures, like 'get-in' or 'update-in' functions
@@ -20,8 +20,8 @@ import 'package:persistent/persistent.dart';
 //   {'foo': [{'bar': 'bla', 'bar2': 'bla3'}]}
 //
 class Data {
-  PersistentMap _value;
-  PersistentMap get value => _value;
+  PMap _value;
+  PMap get value => _value;
 
   Data(this._value);
 
@@ -38,16 +38,16 @@ class Data {
 
      var nextPart = (path as List).removeAt(0);
      if ((path as List).isEmpty) {
-       if (d is PersistentVector) {
-         // There is no efficient way to remove an item from PersistentVector so far, unfortunately
+       if (d is PVec) {
+         // There is no efficient way to remove an item from PVec so far, unfortunately
          var list = d.toList().getRange(0, nextPart).toList()..addAll(d.toList().getRange(nextPart + 1, d.length));
-         d = new PersistentVector.from(list);
+         d = new PVec.from(list);
        } else {
          d = d.delete(nextPart);
        }
      } else {
        var newVal = remove(path, d[nextPart]);
-       if (d is PersistentVector) {
+       if (d is PVec) {
          d = d.set(nextPart, newVal);
        } else {
          d = d.insert(nextPart, newVal);
@@ -64,7 +64,7 @@ class Data {
     if (path is String) {
       path = [path];
     }
-    (path as List).add((get(path) as PersistentVector).length);
+    (path as List).add((get(path) as PVec).length);
     _value = insertIn(value, path, v);
   }
 
